@@ -1,6 +1,8 @@
 package io.github.ioni5;
 
 public class TicTacToe {
+
+    private static final int MAX_NUM_PLAYERS = 2;
     
     private Player[] players;
 
@@ -8,11 +10,14 @@ public class TicTacToe {
 
     private Board board;
 
-    public TicTacToe() {
-        players = new Player[] {
-            new Player(Token.X),
-            new Player(Token.O)
-        };
+    public TicTacToe(int numPlayers) {
+        players = new Player[MAX_NUM_PLAYERS];
+        for (int i = 0; i < numPlayers; i++) {
+            players[i] = new HumanPlayer(Token.values()[i]);
+        }
+        for (int i = numPlayers; i < MAX_NUM_PLAYERS; i++) {
+            players[i] = new MachinePlayer(Token.values()[i]);
+        }
         turn = new Turn(players);
         board = new Board();
     }
