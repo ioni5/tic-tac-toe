@@ -2,7 +2,7 @@ package io.github.ioni5;
 
 public class TicTacToe {
 
-    private static final int MAX_NUM_PLAYERS = 2;
+    static final int MAX_NUM_PLAYERS = 2;
     
     private Player[] players;
 
