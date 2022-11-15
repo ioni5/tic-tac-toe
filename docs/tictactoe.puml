@@ -1,0 +1,44 @@
+@startuml tictactoe
+
+class TicTacToe {
+    + play():void
+    + {static} main
+}
+TicTacToe *--> Board
+TicTacToe *--> Turn
+
+Turn --> "2" Player
+class Turn {
+    + play:void
+}
+
+abstract class Player {
+    + play():void
+}
+Player --> Board
+Player --> Token
+Player ..> Error
+
+class Board {
+    + isValidToPut(Coordinate):Error
+    + isValidToRemove(Token, Coordinate):Error
+}
+Board ..> Token
+Board ..> Error
+
+enum Error {
+    PUT
+    MOVE
+    NULL
+}
+
+enum Token {
+    O
+    X
+    NULL
+}
+
+Player <|-- HumanPlayer
+Player <|-- MachinePlayer
+
+@enduml
