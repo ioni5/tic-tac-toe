@@ -8,6 +8,7 @@ TicTacToe *--> Board
 TicTacToe *--> Turn
 
 Turn --> "2" Player
+Turn --> Board
 class Turn {
     + play:void
 }
