@@ -29,16 +29,27 @@ public class Board {
         return count == 3;
     }
 
-    public boolean isValidToPut(Coordinate coordinate) {
-        return isEmpty(coordinate);
+    public Error isValidToPut(Coordinate coordinate) {
+        if (!isEmpty(coordinate)) {
+            return Error.PUT;
+        }
+        return Error.NULL;
     }
 
     private boolean isEmpty(Coordinate coordinate) {
         return this.getToken(coordinate) == Token.EMPTY;
     }
 
+    public Error isValidToRemove(Token token, Coordinate coordinate) {
+        
+        if (this.getToken(coordinate) != token) {
+            return Error.MOVE;
+        }
+        return Error.NULL;
+    }
+
     public void put(Token token, Coordinate coordinate) {
-        assert isValidToPut(coordinate);
+        assert isValidToPut(coordinate) == Error.NULL;
         setToken(token, coordinate);
     }
 
@@ -47,12 +58,8 @@ public class Board {
     }
 
     public void remove(Token token, Coordinate coordinate) {
-        assert isValidToRemove(token, coordinate);
+        assert isValidToRemove(token, coordinate) == Error.NULL;
         this.setToken(Token.EMPTY, coordinate);
-    }
-
-    public boolean isValidToRemove(Token token, Coordinate coordinate) {
-        return this.getToken(coordinate) == token;
     }
 
     private Token getToken(Coordinate coordinate) {
@@ -92,6 +99,7 @@ public class Board {
 
     public void show() {
         Console console = new Console();
+        console.write("\n");
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 console.write(tokens[i][j].toString());            
