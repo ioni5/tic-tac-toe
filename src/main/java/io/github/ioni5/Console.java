@@ -10,6 +10,10 @@ public class Console {
         System.out.print(message);
     }
 
+    public void write(char message) {
+        System.out.print(message);
+    }
+
     public String read(String message) {
         String input = null;
         this.write(message);

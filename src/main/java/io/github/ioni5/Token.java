@@ -5,15 +5,14 @@ public enum Token {
     X('x'),
     EMPTY('_');
 
-    private char value;
+    private char symbol;
 
-    private Token(char value) {
-        this.value = value;
+    private Token(char symbol) {
+        this.symbol = symbol;
     }
     
-    @Override
-    public String toString() {
-        return Character.toString(value);
+    public char getSymbol() {
+        return symbol;
     }
 
 }

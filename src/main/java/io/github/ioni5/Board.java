@@ -102,7 +102,7 @@ public class Board {
         console.write("\n");
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                console.write(tokens[i][j].toString());            
+                console.write(tokens[i][j].getSymbol());            
             }
             console.write("\n");
         }

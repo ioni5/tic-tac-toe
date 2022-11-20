@@ -13,7 +13,7 @@ public class TicTacToe {
 
     public void play() {
         Console console = new Console();
-        console.write("\nTic-Tac-Toe\n");
+        console.write(Message.TITLE.getMessage());
         do {
             board.show();
             turn.play();

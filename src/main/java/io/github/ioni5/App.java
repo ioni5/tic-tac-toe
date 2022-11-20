@@ -13,7 +13,7 @@ public class App {
         String input;
         boolean error = false;
         do {
-            input = console.read("\n¿Quieres continuar? (y/n): ");
+            input = console.read(Message.RESUME.getMessage());
             error = !input.equalsIgnoreCase("y") 
                 && !input.equalsIgnoreCase("n");
         } while (error);

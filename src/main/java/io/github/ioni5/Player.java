@@ -18,10 +18,10 @@ public abstract class Player {
     public void play() {
         Console console = new Console();
         if (board.isComplete(token)) {
-            console.write("\nLas '" + token + "' mueven.");
+            console.write(Message.MOVE.getMessage().replace("#PLAYER", "" + token.getSymbol()));
             this.move();
         } else {
-            console.write("\nLas '" + token + "' ponen.");
+            console.write(Message.PUT.getMessage().replace("#PLAYER", "" + token.getSymbol()));
             this.put();
         }
     }
@@ -30,7 +30,7 @@ public abstract class Player {
         Coordinate coordinate;
         Error error;
         do {
-            coordinate = this.obtainCoordinate("¿En que posición?");
+            coordinate = this.obtainCoordinate(Message.GET_COORDINATE_TO_PUT.getMessage());
             error = board.isValidToPut(coordinate);
         } while (error != Error.NULL);
         board.put(token, coordinate);         
@@ -41,10 +41,10 @@ public abstract class Player {
         Coordinate to = null;
         Error error;
         do {
-            from = this.obtainCoordinate("¿Desde que posición?");
+            from = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_ORIGIN.getMessage());
             error = this.isValidToRemove(from);
             if (error == Error.NULL) {
-                to = this.obtainCoordinate("¿Hacia que posición?");
+                to = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_TARGET.getMessage());
                 error = board.isValidToPut(to);
             }
         } while (error != Error.NULL);
