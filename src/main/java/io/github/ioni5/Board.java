@@ -31,7 +31,7 @@ public class Board {
 
     public Error isValidToPut(Coordinate coordinate) {
         if (!isEmpty(coordinate)) {
-            return Error.PUT;
+            return Error.INVALID_TO_PUT;
         }
         return Error.NULL;
     }
@@ -41,9 +41,9 @@ public class Board {
     }
 
     public Error isValidToRemove(Token token, Coordinate coordinate) {
-        
+        assert token != null && coordinate != null;
         if (this.getToken(coordinate) != token) {
-            return Error.MOVE;
+            return Error.INVALID_TO_MOVE;
         }
         return Error.NULL;
     }

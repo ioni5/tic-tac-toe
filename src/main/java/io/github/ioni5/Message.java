@@ -4,7 +4,8 @@ public enum Message {
     
     TITLE("\nTic-Tac-Toe\n"),
     MOVE("\nLas #PLAYER mueven."),
-    PUT("\nLas #PLAYER ponen."), 
+    PUT("\nLas #PLAYER ponen."),
+    GET_COORDINATE("\nIngresa número entre #INTERVALE"),
     GET_COORDINATE_TO_PUT("\n¿En que posición?"), 
     GET_COORDINATE_TO_MOVE_ORIGIN("\n¿Desde que posición?"), 
     GET_COORDINATE_TO_MOVE_TARGET("\n¿Hacia que posición?"), 

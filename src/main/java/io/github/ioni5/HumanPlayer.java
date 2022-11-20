@@ -24,7 +24,7 @@ public class HumanPlayer extends Player {
     protected Coordinate obtainCoordinate(String message) {
         Coordinate coordinate = new Coordinate();
         new Console().write("\n" + message);
-        coordinate.obtain(Board.LIMIT);
+        coordinate.obtain();
         return coordinate;
     }
 }

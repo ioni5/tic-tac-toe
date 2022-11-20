@@ -2,6 +2,8 @@ package io.github.ioni5;
 
 public class Coordinate {
 
+    private static final Intervale LIMIT = new Intervale(1, Board.SIZE);
+
     private int row;
 
     private int col;
@@ -15,20 +17,23 @@ public class Coordinate {
 
     public void obtain() {
         Console console = new Console();
-        row = console.readInt("\nIngresa fila: ");
-        col = console.readInt("Ingresa columna: ");
+        Error error;
+        do {
+            row = console.readInt("\nIngresa fila: ");
+            col = console.readInt("Ingresa columna: ");
+            error = this.isValid();
+            if (error != Error.NULL) {
+                error.show();
+                console.write(Message.GET_COORDINATE.getMessage().replace("#INTERVALE", LIMIT.toString()));
+            }
+        } while (error != Error.NULL);
     }
 
-    public void obtain(Intervale limit) {
-        Console console = new Console();
-        boolean error = false;
-        do {
-            this.obtain();
-            error = !limit.includes(row) || !limit.includes(col);
-            if (error) {
-                console.write("\nError: coordenada invalida.\nIngresa numero entre " + limit.toString() + ".");
-            }
-        } while (error);
+    public Error isValid() {
+        if (!LIMIT.includes(row) || !LIMIT.includes(col)) {
+            return Error.INVALID_COORDINATE;
+        }
+        return Error.NULL;
     }
 
     public int getRow() {

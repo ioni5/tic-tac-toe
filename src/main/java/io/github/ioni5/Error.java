@@ -1,8 +1,9 @@
 package io.github.ioni5;
 
 enum Error {
-    PUT("\nError: No puedes poner en esta posición."),
-    MOVE("\nError: No puedes mover esta ficha."),
+    INVALID_TO_PUT("\nError: No puedes poner en esta posición."),
+    INVALID_TO_MOVE("\nError: No puedes mover esta ficha."),
+    INVALID_COORDINATE("\nError: coordenada inválida."),
     NULL("");
 
     private String message;
