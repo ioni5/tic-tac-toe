@@ -1,4 +1,4 @@
-package io.github.ioni5;
+package utils;
 
 public class Intervale {
 

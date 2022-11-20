@@ -1,26 +1,25 @@
 package io.github.ioni5;
 
-public class Coordinate {
+import utils.Intervale;
+
+public class Coordinate extends utils.Coordinate {
 
     private static final Intervale LIMIT = new Intervale(1, Board.SIZE);
 
-    private int row;
-
-    private int col;
-
-    public Coordinate() {}
+    public Coordinate() {
+        super();
+    }
 
     public Coordinate(int row, int col) {
-        this.row = row;
-        this.col = col;
+        super(row, col);
     }
 
     public void obtain() {
         Console console = new Console();
         Error error;
         do {
-            row = console.readInt("\nIngresa fila: ");
-            col = console.readInt("Ingresa columna: ");
+            row = console.readInt(Message.ENTER_ROW.getMessage());
+            col = console.readInt(Message.ENTER_COLUMN.getMessage());
             error = this.isValid();
             if (error != Error.NULL) {
                 error.show();
@@ -34,19 +33,5 @@ public class Coordinate {
             return Error.INVALID_COORDINATE;
         }
         return Error.NULL;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        Coordinate coordinate = (Coordinate) object;
-        return row == coordinate.row && col == coordinate.col;
     }
 }

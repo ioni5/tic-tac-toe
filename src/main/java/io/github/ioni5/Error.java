@@ -1,6 +1,6 @@
 package io.github.ioni5;
 
-enum Error {
+public enum Error {
     INVALID_TO_PUT("\nError: No puedes poner en esta posición."),
     INVALID_TO_MOVE("\nError: No puedes mover esta ficha."),
     INVALID_COORDINATE("\nError: coordenada inválida."),

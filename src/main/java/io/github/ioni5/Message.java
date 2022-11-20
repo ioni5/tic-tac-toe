@@ -9,7 +9,9 @@ public enum Message {
     GET_COORDINATE_TO_PUT("\n¿En que posición?"), 
     GET_COORDINATE_TO_MOVE_ORIGIN("\n¿Desde que posición?"), 
     GET_COORDINATE_TO_MOVE_TARGET("\n¿Hacia que posición?"), 
-    RESUME("\n¿Quieres continuar? (y/n): ");
+    RESUME("\n¿Quieres continuar? (y/n): "), 
+    ENTER_ROW("\nIngresa fila: "), 
+    ENTER_COLUMN("Ingresa columna: ");
     
     private String message;
 

@@ -1,5 +1,7 @@
 package io.github.ioni5;
 
+import utils.Intervale;
+
 public class Turn {
 
     static final int MAX_NUM_PLAYERS = 2;

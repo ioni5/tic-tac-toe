@@ -1,5 +1,8 @@
 package io.github.ioni5;
 
+import utils.Coordinate;
+import utils.Intervale;
+
 public class Board {
 
     public static final int SIZE = 3;
