@@ -1,13 +1,11 @@
 package io.github.ioni5;
 
+import utils.Console;
 import utils.Coordinate;
-import utils.Intervale;
 
 public class Board {
 
     public static final int SIZE = 3;
-
-    public static final Intervale LIMIT = new Intervale(1, SIZE);
 
     private Token[][] tokens;
 
@@ -21,6 +19,7 @@ public class Board {
     }
 
     public boolean isComplete(Token token) {
+        assert token != null;
         int count = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j <SIZE; j++) {
@@ -33,6 +32,7 @@ public class Board {
     }
 
     public Error isValidToPut(Coordinate coordinate) {
+        assert coordinate != null;
         if (!isEmpty(coordinate)) {
             return Error.INVALID_TO_PUT;
         }
@@ -40,6 +40,7 @@ public class Board {
     }
 
     private boolean isEmpty(Coordinate coordinate) {
+        assert coordinate != null;
         return this.getToken(coordinate) == Token.EMPTY;
     }
 
@@ -57,7 +58,8 @@ public class Board {
     }
 
     private void setToken(Token token, Coordinate coordinate) {
-        tokens[coordinate.getRow() - 1][coordinate.getCol() - 1] = token;
+        assert token != null && coordinate != null;
+        tokens[coordinate.getRow()][coordinate.getCol()] = token;
     }
 
     public void remove(Token token, Coordinate coordinate) {
@@ -66,7 +68,8 @@ public class Board {
     }
 
     private Token getToken(Coordinate coordinate) {
-        return tokens[coordinate.getRow() - 1][coordinate.getCol() - 1];
+        assert coordinate != null;
+        return tokens[coordinate.getRow()][coordinate.getCol()];
     }
 
     public boolean hasWinner() {
@@ -74,6 +77,7 @@ public class Board {
     }
 
     private boolean isWinner(Token token) {
+        assert token != null;
         int[] rows = new int[SIZE];
         int[] cols = new int[SIZE];
         int diagonal = 0;

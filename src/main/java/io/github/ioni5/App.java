@@ -1,5 +1,7 @@
 package io.github.ioni5;
 
+import utils.Console;
+
 public class App {
 
     public void play() {

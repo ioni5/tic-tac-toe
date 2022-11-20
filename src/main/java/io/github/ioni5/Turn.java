@@ -1,5 +1,6 @@
 package io.github.ioni5;
 
+import utils.Console;
 import utils.Intervale;
 
 public class Turn {
@@ -19,7 +20,6 @@ public class Turn {
         for (int i = numPlayers; i < MAX_NUM_PLAYERS; i++) {
             players[i] = new MachinePlayer(Token.values()[i], board);
         }
-
     }
 
     private int getNumPlayers() {
@@ -28,7 +28,7 @@ public class Turn {
         int numPlayers;
         boolean error;
         do {
-            numPlayers = console.readInt("\nEnter number of players " + intervale.toString() + ": ");
+            numPlayers = console.readInt(Message.ENTER_NUM_PLAYERS.getMessage().replace("#INTERVALE", intervale.toString()));
             error = !intervale.includes(numPlayers);
         } while (error);
         return numPlayers;
@@ -43,7 +43,7 @@ public class Turn {
     }
 
     public void showWinner() {
-        new Console().write("\n¡Las '" + this.getPlayer().getToken() + "' ganan!\n");
+        new Console().write(Message.WINNER.getMessage().replace("#PLAYER", this.getPlayer().getToken().name()));
     }
 
     public void play() {

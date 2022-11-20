@@ -20,4 +20,8 @@ public class Intervale {
         return "[" + inferior + ", " + superior + "]";
     }
 
+    public Intervale displaced() {
+        return new Intervale(inferior + 1, superior + 1);
+    }
+
 }

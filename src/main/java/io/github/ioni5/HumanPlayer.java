@@ -1,5 +1,7 @@
 package io.github.ioni5;
 
+import utils.Console;
+
 public class HumanPlayer extends Player {
 
     public HumanPlayer(Token token, Board board) {
