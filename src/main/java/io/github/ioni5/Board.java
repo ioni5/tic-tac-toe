@@ -53,7 +53,7 @@ public class Board {
     }
 
     public void put(Token token, Coordinate coordinate) {
-        assert isValidToPut(coordinate) == Error.NULL;
+        assert isValidToPut(coordinate).isNull();
         setToken(token, coordinate);
     }
 
@@ -63,7 +63,7 @@ public class Board {
     }
 
     public void remove(Token token, Coordinate coordinate) {
-        assert isValidToRemove(token, coordinate) == Error.NULL;
+        assert isValidToRemove(token, coordinate).isNull();
         this.setToken(Token.EMPTY, coordinate);
     }
 

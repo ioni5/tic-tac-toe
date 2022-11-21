@@ -25,11 +25,11 @@ public class Coordinate extends utils.Coordinate {
             row = console.readInt(Message.ENTER_ROW.getMessage()) - 1;
             col = console.readInt(Message.ENTER_COLUMN.getMessage()) - 1;
             error = this.isValid();
-            if (error != Error.NULL) {
+            if (!error.isNull()) {
                 error.show();
                 console.write(Message.GET_COORDINATE.getMessage().replace("#INTERVALE", LIMIT.displaced().toString()));
             }
-        } while (error != Error.NULL);
+        } while (!error.isNull());
     }
 
     public Error isValid() {

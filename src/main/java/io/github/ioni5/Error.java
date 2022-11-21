@@ -6,7 +6,7 @@ public enum Error {
     INVALID_TO_PUT("\nError: No puedes poner en esta posición."),
     INVALID_TO_MOVE("\nError: No puedes mover esta ficha."),
     INVALID_COORDINATE("\nError: coordenada inválida."),
-    NULL("");
+    NULL(null);
 
     private String message;
 
@@ -14,7 +14,12 @@ public enum Error {
         this.message = message;
     }
 
+    public boolean isNull() {
+        return this.equals(Error.NULL);
+    }
+
     public void show() {
+        assert !this.isNull();
         new Console().write(message);
     }
 }

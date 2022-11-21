@@ -34,7 +34,7 @@ public abstract class Player {
         do {
             coordinate = this.obtainCoordinate(Message.GET_COORDINATE_TO_PUT.getMessage());
             error = board.isValidToPut(coordinate);
-        } while (error != Error.NULL);
+        } while (!error.isNull());
         board.put(token, coordinate);         
     }
 
@@ -45,11 +45,11 @@ public abstract class Player {
         do {
             from = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_ORIGIN.getMessage());
             error = this.isValidToRemove(from);
-            if (error == Error.NULL) {
+            if (error.isNull()) {
                 to = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_TARGET.getMessage());
                 error = board.isValidToPut(to);
             }
-        } while (error != Error.NULL);
+        } while (!error.isNull());
         board.remove(token, from);
         board.put(token, to);
     }
