@@ -1,5 +1,7 @@
 package io.github.ioni5;
 
+import java.util.Random;
+
 import utils.Console;
 import utils.Intervale;
 
@@ -35,5 +37,11 @@ public class Coordinate extends utils.Coordinate {
             return Error.INVALID_COORDINATE;
         }
         return Error.NULL;
+    }
+
+    public void random() {
+        Random rnd = new Random();
+        row = rnd.nextInt(Board.SIZE);
+        col = rnd.nextInt(Board.SIZE);
     }
 }

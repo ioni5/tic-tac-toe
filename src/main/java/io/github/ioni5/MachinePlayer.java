@@ -1,7 +1,5 @@
 package io.github.ioni5;
 
-import java.util.Random;
-
 public class MachinePlayer extends Player {
 
     public MachinePlayer(Token token, Board board) {
@@ -10,9 +8,9 @@ public class MachinePlayer extends Player {
 
     @Override
     protected Coordinate obtainCoordinate(String message) {
-        Random rnd = new Random();
-        return new Coordinate(rnd.nextInt(Board.SIZE), 
-            rnd.nextInt(Board.SIZE));
+        Coordinate coordinate = new Coordinate();
+        coordinate.random();
+        return coordinate;
     }
 
 }
