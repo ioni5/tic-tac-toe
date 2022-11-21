@@ -1,31 +1,42 @@
 @startuml tictactoe
 
-class TicTacToe {
-    + play():void
-    + {static} main
+class Game {
 }
-TicTacToe *--> Board
-TicTacToe *--> Turn
+Game *--> Board
+Game *--> Turn
 
 Turn --> "2" Player
 Turn --> Board
 class Turn {
-    + play:void
+    + next():void
+    + getPlayer():Player
 }
 
-abstract class Player {
-    + play():void
+class Player {
+    + put(Coordinate):void
+    + move(Coordinate, Coordinate):void
+    + getToken():Token
 }
 Player --> Board
 Player --> Token
 Player ..> Error
+Player ..> Coordinate
 
 class Board {
     + isValidToPut(Coordinate):Error
     + isValidToRemove(Token, Coordinate):Error
+    + put(Token, Coordinate):void
+    + remove(Coordinate):void
 }
 Board ..> Token
 Board ..> Error
+Board ..> Coordinate
+
+class Coordinate {
+    + random():void
+    + isValid():Error
+}
+Coordinate ..> Error
 
 enum Error {
     PUT
@@ -39,7 +50,54 @@ enum Token {
     NULL
 }
 
-Player <|-- HumanPlayer
-Player <|-- MachinePlayer
+class View #pink {
+    + interact():void
+}
+class StartView #pink {
+    + interact():void
+}
+class PlayView #pink {
+    + interact():void
+}
+class ResumeView #pink {
+    + interact():void
+}
+class BoardView #pink {
+    + write():void
+}
+class CoordinateView #pink {
+    + read(String):Coordinate
+}
+class ErrorView #pink {
+    + write():void
+}
+class TokenView #pink {
+    + write():void
+    + getSymbol():char
+}
+View *--> StartView
+View *--> PlayView
+View *--> ResumeView
 
+PlayView *--> BoardView
+PlayView ..> CoordinateView
+PlayView ..> ErrorView
+BoardView ..> TokenView
+
+class App {
+    + {static}main()
+}
+App *--> Game
+App *--> View
+
+View --> Game
+PlayView --> Game
+StartView --> Game
+ResumeView --> Game
+
+BoardView --> Game
+TokenView --> Token
+ErrorView --> Error
+
+CoordinateView ..> Coordinate
 @enduml
