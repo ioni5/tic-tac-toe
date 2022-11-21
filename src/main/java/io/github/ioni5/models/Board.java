@@ -1,23 +1,28 @@
-package io.github.ioni5;
+package io.github.ioni5.models;
+
+import utils.Coordinate;
 
 public class Board {
 
     public static final int SIZE = 3;
 
-    public static final Intervale LIMIT = new Intervale(1, SIZE);
-
     private Token[][] tokens;
 
     public Board() {
         tokens = new Token[SIZE][SIZE];
+        this.reset();
+    }
+
+    public void reset() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j <SIZE; j++) {
-                tokens[i][j] = Token.EMPTY;
+                tokens[i][j] = Token.NULL;
             }
         }
     }
 
     public boolean isComplete(Token token) {
+        assert token != null;
         int count = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j <SIZE; j++) {
@@ -30,40 +35,44 @@ public class Board {
     }
 
     public Error isValidToPut(Coordinate coordinate) {
+        assert coordinate != null;
         if (!isEmpty(coordinate)) {
-            return Error.PUT;
+            return Error.INVALID_TO_PUT;
         }
         return Error.NULL;
     }
 
     private boolean isEmpty(Coordinate coordinate) {
-        return this.getToken(coordinate) == Token.EMPTY;
+        assert coordinate != null;
+        return this.getToken(coordinate) == Token.NULL;
     }
 
     public Error isValidToRemove(Token token, Coordinate coordinate) {
-        
+        assert token != null && coordinate != null;
         if (this.getToken(coordinate) != token) {
-            return Error.MOVE;
+            return Error.INVALID_TO_MOVE;
         }
         return Error.NULL;
     }
 
     public void put(Token token, Coordinate coordinate) {
-        assert isValidToPut(coordinate) == Error.NULL;
+        assert isValidToPut(coordinate).isNull();
         setToken(token, coordinate);
     }
 
     private void setToken(Token token, Coordinate coordinate) {
-        tokens[coordinate.getRow() - 1][coordinate.getCol() - 1] = token;
+        assert token != null && coordinate != null;
+        tokens[coordinate.getRow()][coordinate.getCol()] = token;
     }
 
     public void remove(Token token, Coordinate coordinate) {
-        assert isValidToRemove(token, coordinate) == Error.NULL;
-        this.setToken(Token.EMPTY, coordinate);
+        assert isValidToRemove(token, coordinate).isNull();
+        this.setToken(Token.NULL, coordinate);
     }
 
-    private Token getToken(Coordinate coordinate) {
-        return tokens[coordinate.getRow() - 1][coordinate.getCol() - 1];
+    Token getToken(Coordinate coordinate) {
+        assert coordinate != null;
+        return tokens[coordinate.getRow()][coordinate.getCol()];
     }
 
     public boolean hasWinner() {
@@ -71,6 +80,7 @@ public class Board {
     }
 
     private boolean isWinner(Token token) {
+        assert token != null;
         int[] rows = new int[SIZE];
         int[] cols = new int[SIZE];
         int diagonal = 0;
@@ -95,17 +105,6 @@ public class Board {
             }
         }
         return diagonal == SIZE || inverse == SIZE;
-    }
-
-    public void show() {
-        Console console = new Console();
-        console.write("\n");
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                console.write(tokens[i][j].toString());            
-            }
-            console.write("\n");
-        }
     }
 
 }

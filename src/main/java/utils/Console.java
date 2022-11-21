@@ -1,4 +1,4 @@
-package io.github.ioni5;
+package utils;
 
 import java.util.Scanner;
 
@@ -7,6 +7,10 @@ public class Console {
     private Scanner sc = new Scanner(System.in);
 
     public void write(String message) {
+        System.out.print(message);
+    }
+
+    public void write(char message) {
         System.out.print(message);
     }
 

@@ -1,4 +1,4 @@
-package io.github.ioni5;
+package utils;
 
 public class Intervale {
 
@@ -18,6 +18,10 @@ public class Intervale {
     @Override
     public String toString() {
         return "[" + inferior + ", " + superior + "]";
+    }
+
+    public Intervale displaced() {
+        return new Intervale(inferior + 1, superior + 1);
     }
 
 }

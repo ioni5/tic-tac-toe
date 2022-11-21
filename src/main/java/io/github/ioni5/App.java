@@ -1,27 +1,25 @@
 package io.github.ioni5;
 
+import io.github.ioni5.models.Game;
+import io.github.ioni5.views.View;
+
 public class App {
 
-    public void play() {
-        do {
-            new TicTacToe().play();
-        } while (this.again());
+    private Game game;
+    
+    private View view;
+
+    public App() {
+        game = new Game();
+        view = new View(game);
     }
 
-    public boolean again() {
-        Console console = new Console();
-        String input;
-        boolean error = false;
-        do {
-            input = console.read("\n¿Quieres continuar? (y/n): ");
-            error = !input.equalsIgnoreCase("y") 
-                && !input.equalsIgnoreCase("n");
-        } while (error);
-        return input.equalsIgnoreCase("y");
+    public void start() {
+        view.interact();
     }
     
     public static void main( String[] args ) {
-        new App().play();
+        new App().start();
     }
 
 }
