@@ -1,6 +1,5 @@
-package io.github.ioni5;
+package io.github.ioni5.models;
 
-import utils.Console;
 import utils.Coordinate;
 
 public class Board {
@@ -11,9 +10,13 @@ public class Board {
 
     public Board() {
         tokens = new Token[SIZE][SIZE];
+        this.reset();
+    }
+
+    public void reset() {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j <SIZE; j++) {
-                tokens[i][j] = Token.EMPTY;
+                tokens[i][j] = Token.NULL;
             }
         }
     }
@@ -41,7 +44,7 @@ public class Board {
 
     private boolean isEmpty(Coordinate coordinate) {
         assert coordinate != null;
-        return this.getToken(coordinate) == Token.EMPTY;
+        return this.getToken(coordinate) == Token.NULL;
     }
 
     public Error isValidToRemove(Token token, Coordinate coordinate) {
@@ -64,10 +67,10 @@ public class Board {
 
     public void remove(Token token, Coordinate coordinate) {
         assert isValidToRemove(token, coordinate).isNull();
-        this.setToken(Token.EMPTY, coordinate);
+        this.setToken(Token.NULL, coordinate);
     }
 
-    private Token getToken(Coordinate coordinate) {
+    Token getToken(Coordinate coordinate) {
         assert coordinate != null;
         return tokens[coordinate.getRow()][coordinate.getCol()];
     }
@@ -102,17 +105,6 @@ public class Board {
             }
         }
         return diagonal == SIZE || inverse == SIZE;
-    }
-
-    public void show() {
-        Console console = new Console();
-        console.write("\n");
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                console.write(tokens[i][j].getSymbol());            
-            }
-            console.write("\n");
-        }
     }
 
 }
