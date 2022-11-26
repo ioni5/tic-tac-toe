@@ -46,9 +46,5 @@ public class PlayController extends Controller {
     public void move(Coordinate origin, Coordinate target) {
         game.move(origin, target);
     }
-
-    public Token getToken(Coordinate coordinate) {
-        return game.getToken(coordinate);
-    }
     
 }
