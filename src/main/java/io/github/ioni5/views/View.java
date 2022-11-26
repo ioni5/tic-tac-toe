@@ -2,24 +2,24 @@ package io.github.ioni5.views;
 
 import io.github.ioni5.models.Game;
 
-public class View {
-    
-    private StartView startView;
+public abstract class View {
 
-    private PlayView playView;
-
-    private ResumeView resumeView;
+    protected Game game;
 
     public View(Game game) {
-        startView = new StartView(game);
-        playView = new PlayView(game);
-        resumeView = new ResumeView(game);
+        this.game = game;
     }
 
     public void interact() {
-        startView.interact();
+        this.getStartView();
         do {
-            playView.interact();
-        } while (resumeView.interact());
+            this.getPlayView();
+        } while (this.isResumed());
     }
+
+    protected abstract boolean isResumed();
+
+    protected abstract void getPlayView();
+
+    protected abstract void getStartView();
 }

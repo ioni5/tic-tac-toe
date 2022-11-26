@@ -1,8 +1,9 @@
-package io.github.ioni5.views;
+package io.github.ioni5.views.console;
 
 import io.github.ioni5.models.Coordinate;
 import io.github.ioni5.models.Error;
 import io.github.ioni5.models.Game;
+import io.github.ioni5.views.Message;
 import utils.Console;
 
 public class PlayView {

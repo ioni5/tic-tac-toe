@@ -1,4 +1,4 @@
-package io.github.ioni5.views;
+package io.github.ioni5.views.console;
 
 import io.github.ioni5.models.Error;
 import utils.Console;
