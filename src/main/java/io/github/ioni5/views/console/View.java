@@ -1,6 +1,8 @@
 package io.github.ioni5.views.console;
 
-import io.github.ioni5.models.Game;
+import io.github.ioni5.controllers.PlayController;
+import io.github.ioni5.controllers.ResumeController;
+import io.github.ioni5.controllers.StartController;
 
 public class View extends io.github.ioni5.views.View {
     
@@ -10,11 +12,10 @@ public class View extends io.github.ioni5.views.View {
 
     private ResumeView resumeView;
 
-    public View(Game game) {
-        super(game);
-        startView = new StartView(game);
-        playView = new PlayView(game);
-        resumeView = new ResumeView(game);
+    public View(StartController startController, PlayController playController, ResumeController resumeController) {
+        startView = new StartView(startController);
+        playView = new PlayView(playController);
+        resumeView = new ResumeView(resumeController);
     }
 
     public void interact() {

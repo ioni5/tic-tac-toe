@@ -1,6 +1,6 @@
 package io.github.ioni5.views.console;
 
-import io.github.ioni5.models.Game;
+import io.github.ioni5.controllers.StartController;
 import io.github.ioni5.views.Message;
 import utils.Console;
 import utils.Intervale;
@@ -12,10 +12,10 @@ public class StartView {
 
     private static final int MAX_HUMAN_PLAYERS = 2;
 
-    private Game game;
+    private StartController startController;
 
-    public StartView(Game game) {
-        this.game = game;
+    public StartView(StartController startController) {
+        this.startController = startController;
     }
 
     public void interact() {
@@ -24,7 +24,7 @@ public class StartView {
         .read(Message.ENTER_NUM_OF_HUMAN_PLAYERS.getMessage()
             .replace("#MIN", "" + MIN_HUMAN_PLAYERS)
             .replace("#MAX", "" + MAX_HUMAN_PLAYERS));
-        game.setNumberOfHumanPlayers(numberOfHumanPlayers);
+        startController.setNumberOfHumanPlayers(numberOfHumanPlayers);
     }
 
 }

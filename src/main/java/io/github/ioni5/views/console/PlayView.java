@@ -1,20 +1,20 @@
 package io.github.ioni5.views.console;
 
+import io.github.ioni5.controllers.PlayController;
 import io.github.ioni5.models.Coordinate;
 import io.github.ioni5.models.Error;
-import io.github.ioni5.models.Game;
 import io.github.ioni5.views.Message;
 import utils.Console;
 
 public class PlayView {
 
-    private Game game;
+    private PlayController playController;
 
     private BoardView boardView;
 
-    public PlayView(Game game) {
-        this.game = game;
-        boardView = new BoardView(game);
+    public PlayView(PlayController playController) {
+        this.playController = playController;
+        boardView = new BoardView(playController);
     }
 
     public void interact() {
@@ -22,8 +22,8 @@ public class PlayView {
         char player;
         boardView.write();
         do {
-            player = new TokenView(game.getToken()).getSymbol();
-            if (game.isComplete()) {
+            player = new TokenView(playController.getToken()).getSymbol();
+            if (playController.isComplete()) {
                 console.write(Message.MOVE.getMessage().replace("#PLAYER", "" + player));
                 this.move();
             } else {
@@ -31,10 +31,10 @@ public class PlayView {
                 this.put();
             }
             boardView.write();
-            if (!game.hasWinner()) {
-                game.next();
+            if (!playController.hasWinner()) {
+                playController.next();
             }
-        } while (!game.hasWinner());
+        } while (!playController.hasWinner());
         new Console().write(Message.WINNER.getMessage()
             .replace("#PLAYER", "" + player));
     }
@@ -44,12 +44,12 @@ public class PlayView {
         Error error;
         do {
             coordinate = this.obtainCoordinate(Message.GET_COORDINATE_TO_PUT.getMessage());
-            error = game.isValidToPut(coordinate);
-            if (!error.isNull() && game.isHumanPlayer()) {
+            error = playController.isValidToPut(coordinate);
+            if (!error.isNull() && playController.isHumanPlayer()) {
                 new ErrorView(error).write();
             }
         } while (!error.isNull());
-        game.put(coordinate);
+        playController.put(coordinate);
     }
 
     private void move() {
@@ -58,21 +58,21 @@ public class PlayView {
         Error error;
         do {
             origin = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_ORIGIN.getMessage());
-            error = game.isValidToRemove(origin);
+            error = playController.isValidToRemove(origin);
             if (error.isNull()) {
                 target = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_TARGET.getMessage());
-                error = game.isValidToPut(target);
+                error = playController.isValidToPut(target);
             }
-            if (!error.isNull() && game.isHumanPlayer()) {
+            if (!error.isNull() && playController.isHumanPlayer()) {
                 new ErrorView(error).write();
             }
         } while (!error.isNull());
-        game.move(origin, target);
+        playController.move(origin, target);
     }
 
     private Coordinate obtainCoordinate(String message) {
         Coordinate coordinate;
-        if (game.isHumanPlayer()) {
+        if (playController.isHumanPlayer()) {
             coordinate = new CoordinateView().read(message);
         } else {
             coordinate = new Coordinate();

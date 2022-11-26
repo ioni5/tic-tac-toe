@@ -1,11 +1,13 @@
 package io.github.ioni5.views.gui;
 
-import io.github.ioni5.models.Game;
+import io.github.ioni5.controllers.PlayController;
+import io.github.ioni5.controllers.ResumeController;
+import io.github.ioni5.controllers.StartController;
 
 public class View extends io.github.ioni5.views.View {
 
-    public View(Game game) {
-        super(game);
+    public View(StartController startController, PlayController playController, ResumeController resumeController) {
+        
     }
 
     @Override
