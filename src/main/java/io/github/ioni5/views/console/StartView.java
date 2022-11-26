@@ -1,6 +1,7 @@
-package io.github.ioni5.views;
+package io.github.ioni5.views.console;
 
 import io.github.ioni5.models.Game;
+import io.github.ioni5.views.Message;
 import utils.Console;
 import utils.Intervale;
 import utils.LimitedDialog;

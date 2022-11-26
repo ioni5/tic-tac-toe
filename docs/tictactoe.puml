@@ -1,5 +1,6 @@
 @startuml tictactoe
 
+
 class Game {
 }
 Game *--> Board
@@ -50,54 +51,81 @@ enum Token {
     NULL
 }
 
-class View #pink {
+class views.console.View #pink {
     + interact():void
 }
-class StartView #pink {
+class views.console.StartView #pink {
     + interact():void
 }
-class PlayView #pink {
+class views.console.PlayView #pink {
     + interact():void
 }
-class ResumeView #pink {
+class views.console.ResumeView #pink {
     + interact():void
 }
-class BoardView #pink {
+class views.console.BoardView #pink {
     + write():void
 }
-class CoordinateView #pink {
+class views.console.CoordinateView #pink {
     + read(String):Coordinate
 }
-class ErrorView #pink {
+class views.console.ErrorView #pink {
     + write():void
 }
-class TokenView #pink {
+class views.console.TokenView #pink {
     + write():void
     + getSymbol():char
 }
-View *--> StartView
-View *--> PlayView
-View *--> ResumeView
+views.console.View *--> views.console.StartView
+views.console.View *--> views.console.PlayView
+views.console.View *--> views.console.ResumeView
 
-PlayView *--> BoardView
-PlayView ..> CoordinateView
-PlayView ..> ErrorView
-BoardView ..> TokenView
+views.console.PlayView *--> views.console.BoardView
+views.console.PlayView ..> views.console.CoordinateView
+views.console.PlayView ..> views.console.ErrorView
+views.console.BoardView ..> views.console.TokenView
 
-class App {
-    + {static}main()
+views.console.PlayView --> Game
+views.console.StartView --> Game
+views.console.ResumeView --> Game
+
+views.console.BoardView --> Game
+views.console.TokenView --> Token
+views.console.ErrorView --> Error
+
+views.console.CoordinateView ..> Coordinate
+
+views.View --> Game
+
+abstract class views.View #pink {
+    + interact():void
+    # {abstract} getStartView():void
+    # {abstract} getPlayView():void
+    # {abstract} isResumed():boolean
 }
-App *--> Game
-App *--> View
 
-View --> Game
-PlayView --> Game
-StartView --> Game
-ResumeView --> Game
+views.View <|-- views.console.View
+views.View <|-- views.gui.View
 
-BoardView --> Game
-TokenView --> Token
-ErrorView --> Error
+class views.gui.View #pink {}
 
-CoordinateView ..> Coordinate
+abstract class TicTacToe {
+    # createView():View
+}
+TicTacToe *--> Game
+TicTacToe *--> views.View
+
+TicTacToe <|-- CLITicTacToe
+TicTacToe <|-- GUITicTacToe
+
+CLITicTacToe ..> views.console.View
+GUITicTacToe ..> views.gui.View
+
+class CLITicTacToe {
+    + {static} main
+}
+
+class GUITicTacToe {
+    + {static} main
+}
 @enduml
