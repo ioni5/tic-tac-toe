@@ -1,16 +1,16 @@
 package io.github.ioni5.views.console;
 
+import io.github.ioni5.controllers.Controller;
 import io.github.ioni5.models.Board;
 import io.github.ioni5.models.Coordinate;
-import io.github.ioni5.models.Game;
 import utils.Console;
 
 public class BoardView {
 
-    private Game game;
+    private Controller controller;
 
-    public BoardView(Game game) {
-        this.game = game;
+    public BoardView(Controller controller) {
+        this.controller = controller;
     }
 
     public void write() {
@@ -18,7 +18,7 @@ public class BoardView {
         console.write("\n");
         for (int i = 0; i < Board.SIZE; i++) {
             for (int j = 0; j < Board.SIZE; j++) {
-                new TokenView(game.getToken(new Coordinate(i, j))).write();
+                new TokenView(controller.getToken(new Coordinate(i, j))).write();
             }
             console.write("\n");
         }

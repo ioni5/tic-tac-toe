@@ -1,51 +1,51 @@
 @startuml tictactoe
 
 
-class Game {
+class models.Game {
 }
-Game *--> Board
-Game *--> Turn
+models.Game *--> models.Board
+models.Game *--> models.Turn
 
-Turn --> "2" Player
-Turn --> Board
-class Turn {
+models.Turn --> "2" models.Player
+models.Turn --> models.Board
+class models.Turn {
     + next():void
     + getPlayer():Player
 }
 
-class Player {
+class models.Player {
     + put(Coordinate):void
     + move(Coordinate, Coordinate):void
     + getToken():Token
 }
-Player --> Board
-Player --> Token
-Player ..> Error
-Player ..> Coordinate
+models.Player --> models.Board
+models.Player --> models.Token
+models.Player ..> models.Error
+models.Player ..> models.Coordinate
 
-class Board {
+class models.Board {
     + isValidToPut(Coordinate):Error
     + isValidToRemove(Token, Coordinate):Error
     + put(Token, Coordinate):void
     + remove(Coordinate):void
 }
-Board ..> Token
-Board ..> Error
-Board ..> Coordinate
+models.Board ..> models.Token
+models.Board ..> models.Error
+models.Board ..> models.Coordinate
 
-class Coordinate {
+class models.Coordinate {
     + random():void
     + isValid():Error
 }
-Coordinate ..> Error
+models.Coordinate ..> models.Error
 
-enum Error {
+enum models.Error {
     PUT
     MOVE
     NULL
 }
 
-enum Token {
+enum models.Token {
     O
     X
     NULL
@@ -83,19 +83,16 @@ views.console.View *--> views.console.ResumeView
 views.console.PlayView *--> views.console.BoardView
 views.console.PlayView ..> views.console.CoordinateView
 views.console.PlayView ..> views.console.ErrorView
-views.console.BoardView ..> views.console.TokenView
+views.console.BoardView --> controllers.Controller
 
-views.console.PlayView --> Game
-views.console.StartView --> Game
-views.console.ResumeView --> Game
+views.console.PlayView --> controllers.PlayController
+views.console.StartView --> controllers.StartController
+views.console.ResumeView --> controllers.ResumeController
 
-views.console.BoardView --> Game
-views.console.TokenView --> Token
-views.console.ErrorView --> Error
+views.console.TokenView --> models.Token
+views.console.ErrorView --> models.Error
 
-views.console.CoordinateView ..> Coordinate
-
-views.View --> Game
+views.console.CoordinateView ..> models.Coordinate
 
 abstract class views.View #pink {
     + interact():void
@@ -112,7 +109,10 @@ class views.gui.View #pink {}
 abstract class TicTacToe {
     # createView():View
 }
-TicTacToe *--> Game
+TicTacToe *--> models.Game
+TicTacToe *--> controllers.StartController
+TicTacToe *--> controllers.PlayController
+TicTacToe *--> controllers.ResumeController
 TicTacToe *--> views.View
 
 TicTacToe <|-- CLITicTacToe
@@ -128,4 +128,15 @@ class CLITicTacToe {
 class GUITicTacToe {
     + {static} main
 }
+
+abstract class controllers.Controller {
+    
+}
+
+controllers.Controller --> models.Game
+
+controllers.Controller <|-- controllers.StartController
+controllers.Controller <|-- controllers.PlayController
+controllers.Controller <|-- controllers.ResumeController
+
 @enduml

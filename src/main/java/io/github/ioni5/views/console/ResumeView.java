@@ -1,21 +1,21 @@
 package io.github.ioni5.views.console;
 
-import io.github.ioni5.models.Game;
+import io.github.ioni5.controllers.ResumeController;
 import io.github.ioni5.views.Message;
 import utils.YesOrNotDialog;
 
 public class ResumeView {
 
-    private Game game;
+    private ResumeController resumeController;
 
-    public ResumeView(Game game) {
-        this.game = game;
+    public ResumeView(ResumeController resumeController) {
+        this.resumeController = resumeController;
     }
 
     public boolean interact() {
         boolean isResumed = new YesOrNotDialog().read(Message.RESUME.getMessage());
         if (isResumed) {
-            game.reset();
+            resumeController.reset();
         }
         return isResumed;
     }
