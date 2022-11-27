@@ -8,8 +8,11 @@ public class Controller {
     
     protected Game game;
 
-    public Controller(Game game) {
+    protected State state;
+
+    public Controller(Game game, State state) {
         this.game = game;
+        this.state = state;
     }
 
     public Token getToken(Coordinate coordinate) {

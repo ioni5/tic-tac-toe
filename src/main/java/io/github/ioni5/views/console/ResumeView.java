@@ -6,18 +6,13 @@ import utils.YesOrNotDialog;
 
 public class ResumeView {
 
-    private ResumeController resumeController;
-
-    public ResumeView(ResumeController resumeController) {
-        this.resumeController = resumeController;
-    }
-
-    public boolean interact() {
+    public void interact(ResumeController resumeController) {
         boolean isResumed = new YesOrNotDialog().read(Message.RESUME.getMessage());
         if (isResumed) {
             resumeController.reset();
+        } else {
+            resumeController.next();
         }
-        return isResumed;
     }
 
 }

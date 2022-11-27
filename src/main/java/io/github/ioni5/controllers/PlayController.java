@@ -7,8 +7,8 @@ import io.github.ioni5.models.Token;
 
 public class PlayController extends Controller {
 
-    public PlayController(Game game) {
-        super(game);
+    public PlayController(Game game, State state) {
+        super(game, state);
     }
 
     public Token getToken() {
@@ -37,6 +37,9 @@ public class PlayController extends Controller {
 
     public void put(Coordinate coordinate) {
         game.put(coordinate);
+        if (this.hasWinner()) {
+            state.next();
+        }
     }
 
     public Error isValidToRemove(Coordinate origin) {
@@ -45,6 +48,9 @@ public class PlayController extends Controller {
 
     public void move(Coordinate origin, Coordinate target) {
         game.move(origin, target);
+        if (this.hasWinner()) {
+            state.next();
+        }
     }
     
 }

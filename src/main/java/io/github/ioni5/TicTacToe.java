@@ -1,35 +1,30 @@
 package io.github.ioni5;
 
-import io.github.ioni5.controllers.PlayController;
-import io.github.ioni5.controllers.ResumeController;
-import io.github.ioni5.controllers.StartController;
-import io.github.ioni5.models.Game;
+import io.github.ioni5.controllers.Controller;
+import io.github.ioni5.controllers.Logic;
 import io.github.ioni5.views.View;
 
 public abstract class TicTacToe {
 
-    private Game game;
-
-    private StartController startController;
-
-    private PlayController playController;
-
-    private ResumeController resumeController;
+    private Logic logic;
 
     private View view;
 
     public TicTacToe() {
-        game = new Game();
-        startController = new StartController(game);
-        playController = new PlayController(game);
-        resumeController = new ResumeController(game);
-        view = this.createView(startController, playController, resumeController);
+        logic = new Logic();
+        view = this.createView();
     }
     
     public void start() {
-        view.interact();
+        Controller controller;
+        do {
+            controller = logic.getController();
+            if (controller != null) {
+                view.interact(controller);
+            }
+        } while (controller != null);
     }
 
-    protected abstract View createView(StartController startController, PlayController playController, ResumeController resumeController);
+    protected abstract View createView();
     
 }

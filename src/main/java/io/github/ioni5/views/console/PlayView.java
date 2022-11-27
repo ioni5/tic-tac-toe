@@ -8,27 +8,19 @@ import utils.Console;
 
 public class PlayView {
 
-    private PlayController playController;
-
-    private BoardView boardView;
-
-    public PlayView(PlayController playController) {
-        this.playController = playController;
-        boardView = new BoardView(playController);
-    }
-
-    public void interact() {
+    public void interact(PlayController playController) {
         Console console = new Console();
-        char player;
+        BoardView boardView = new BoardView(playController);
         boardView.write();
+        char player;
         do {
             player = new TokenView(playController.getToken()).getSymbol();
             if (playController.isComplete()) {
                 console.write(Message.MOVE.getMessage().replace("#PLAYER", "" + player));
-                this.move();
+                this.move(playController);
             } else {
                 console.write(Message.PUT.getMessage().replace("#PLAYER", "" + player));
-                this.put();
+                this.put(playController);
             }
             boardView.write();
             if (!playController.hasWinner()) {
@@ -39,11 +31,11 @@ public class PlayView {
             .replace("#PLAYER", "" + player));
     }
 
-    private void put() {
+    private void put(PlayController playController) {
         Coordinate coordinate;
         Error error;
         do {
-            coordinate = this.obtainCoordinate(Message.GET_COORDINATE_TO_PUT.getMessage());
+            coordinate = this.obtainCoordinate(Message.GET_COORDINATE_TO_PUT.getMessage(), playController);
             error = playController.isValidToPut(coordinate);
             if (!error.isNull() && playController.isHumanPlayer()) {
                 new ErrorView(error).write();
@@ -52,15 +44,15 @@ public class PlayView {
         playController.put(coordinate);
     }
 
-    private void move() {
+    private void move(PlayController playController) {
         Coordinate origin = null;
         Coordinate target = null;
         Error error;
         do {
-            origin = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_ORIGIN.getMessage());
+            origin = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_ORIGIN.getMessage(), playController);
             error = playController.isValidToRemove(origin);
             if (error.isNull()) {
-                target = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_TARGET.getMessage());
+                target = this.obtainCoordinate(Message.GET_COORDINATE_TO_MOVE_TARGET.getMessage(), playController);
                 error = playController.isValidToPut(target);
             }
             if (!error.isNull() && playController.isHumanPlayer()) {
@@ -70,7 +62,7 @@ public class PlayView {
         playController.move(origin, target);
     }
 
-    private Coordinate obtainCoordinate(String message) {
+    private Coordinate obtainCoordinate(String message, PlayController playController) {
         Coordinate coordinate;
         if (playController.isHumanPlayer()) {
             coordinate = new CoordinateView().read(message);
