@@ -12,13 +12,7 @@ public class StartView {
 
     private static final int MAX_HUMAN_PLAYERS = 2;
 
-    private StartController startController;
-
-    public StartView(StartController startController) {
-        this.startController = startController;
-    }
-
-    public void interact() {
+    public void interact(StartController startController) {
         new Console().write(Message.TITLE.getMessage());
         int numberOfHumanPlayers = new LimitedDialog(new Intervale(MIN_HUMAN_PLAYERS, MAX_HUMAN_PLAYERS))
         .read(Message.ENTER_NUM_OF_HUMAN_PLAYERS.getMessage()

@@ -1,17 +1,9 @@
 package io.github.ioni5.views;
 
+import io.github.ioni5.controllers.Controller;
+
 public abstract class View {
 
-    public void interact() {
-        this.getStartView();
-        do {
-            this.getPlayView();
-        } while (this.isResumed());
-    }
+    public abstract void interact(Controller controller);
 
-    protected abstract boolean isResumed();
-
-    protected abstract void getPlayView();
-
-    protected abstract void getStartView();
 }

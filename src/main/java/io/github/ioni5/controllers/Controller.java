@@ -4,15 +4,20 @@ import io.github.ioni5.models.Coordinate;
 import io.github.ioni5.models.Game;
 import io.github.ioni5.models.Token;
 
-public class Controller {
+public abstract class Controller {
     
     protected Game game;
 
-    public Controller(Game game) {
+    protected State state;
+
+    public Controller(Game game, State state) {
         this.game = game;
+        this.state = state;
     }
 
     public Token getToken(Coordinate coordinate) {
         return game.getToken(coordinate);
     }
+
+    public abstract void accept(ControllerVisitor controllerVisitor);
 }

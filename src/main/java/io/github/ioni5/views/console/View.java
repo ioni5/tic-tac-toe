@@ -1,10 +1,12 @@
 package io.github.ioni5.views.console;
 
+import io.github.ioni5.controllers.Controller;
 import io.github.ioni5.controllers.PlayController;
 import io.github.ioni5.controllers.ResumeController;
 import io.github.ioni5.controllers.StartController;
+import io.github.ioni5.controllers.ControllerVisitor;
 
-public class View extends io.github.ioni5.views.View {
+public class View extends io.github.ioni5.views.View implements ControllerVisitor {
     
     private StartView startView;
 
@@ -12,31 +14,30 @@ public class View extends io.github.ioni5.views.View {
 
     private ResumeView resumeView;
 
-    public View(StartController startController, PlayController playController, ResumeController resumeController) {
-        startView = new StartView(startController);
-        playView = new PlayView(playController);
-        resumeView = new ResumeView(resumeController);
-    }
-
-    public void interact() {
-        startView.interact();
-        do {
-            playView.interact();
-        } while (resumeView.interact());
+    public View() {
+        startView = new StartView();
+        playView = new PlayView();
+        resumeView = new ResumeView();
     }
 
     @Override
-    protected boolean isResumed() {
-        return resumeView.interact();
+    public void interact(Controller controller) {
+        controller.accept(this);
     }
 
     @Override
-    protected void getPlayView() {
-        playView.interact();
+    public void visit(StartController startController) {
+        startView.interact(startController);
     }
 
     @Override
-    protected void getStartView() {
-        startView.interact();
+    public void visit(PlayController playController) {
+        playView.interact(playController);
     }
+
+    @Override
+    public void visit(ResumeController resumeController) {
+        resumeView.interact(resumeController);
+    }
+
 }
