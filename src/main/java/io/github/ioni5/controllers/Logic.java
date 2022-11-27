@@ -24,4 +24,8 @@ public class Logic {
     public Controller getController() {
         return controllers.get(state.getValue());
     }
+
+    public boolean isExit() {
+        return state.getValue().equals(StateValue.EXIT);
+    }
 }

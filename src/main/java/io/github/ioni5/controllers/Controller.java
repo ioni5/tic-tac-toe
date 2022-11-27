@@ -4,7 +4,7 @@ import io.github.ioni5.models.Coordinate;
 import io.github.ioni5.models.Game;
 import io.github.ioni5.models.Token;
 
-public class Controller {
+public abstract class Controller {
     
     protected Game game;
 
@@ -18,4 +18,6 @@ public class Controller {
     public Token getToken(Coordinate coordinate) {
         return game.getToken(coordinate);
     }
+
+    public abstract void accept(ControllerVisitor controllerVisitor);
 }

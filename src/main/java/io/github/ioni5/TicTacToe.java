@@ -16,13 +16,9 @@ public abstract class TicTacToe {
     }
     
     public void start() {
-        Controller controller;
         do {
-            controller = logic.getController();
-            if (controller != null) {
-                view.interact(controller);
-            }
-        } while (controller != null);
+            view.interact(logic.getController());
+        } while (!logic.isExit());
     }
 
     protected abstract View createView();

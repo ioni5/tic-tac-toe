@@ -16,5 +16,10 @@ public class ResumeController extends Controller {
     public void next() {
         state.next();
     }
+
+    @Override
+    public void accept(ControllerVisitor controllerVisitor) {
+        controllerVisitor.visit(this);
+    }
     
 }

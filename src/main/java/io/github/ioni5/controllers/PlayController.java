@@ -52,5 +52,10 @@ public class PlayController extends Controller {
             state.next();
         }
     }
+
+    @Override
+    public void accept(ControllerVisitor controllerVisitor) {
+        controllerVisitor.visit(this);
+    }
     
 }
