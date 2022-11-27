@@ -1,0 +1,59 @@
+@startuml Logic
+
+Controller <|-- StartController
+Controller <|-- PlayController
+Controller <|-- ResumeController
+
+Logic *--> Game
+Logic *--> StartController
+Logic *--> PlayController
+Logic *--> ResumeController
+Logic *--> State
+
+StartController --> Game
+StartController --> State
+PlayController --> Game
+PlayController --> State
+ResumeController --> Game
+ResumeController --> State
+
+State --> StateValue
+
+class State {
+    + next():void
+    + reset():void
+}
+
+enum StateValue {
+    INITIAL
+    IN_GAME
+    RESUME
+    EXIT
+}
+
+class Logic {
+    + getControler():Controller
+}
+
+TicTacToe *--> View
+TicTacToe *--> Logic
+
+class View {
+    + interact(Controller):void
+}
+
+class TicTacToe {
+    + start():void
+}
+
+View ..> Controller
+
+View *--> StartView
+View *--> PlayView
+View *--> ResumeView
+
+StartView ..> StartController
+PlayView ..> PlayController
+ResumeView ..> ResumeController
+
+@enduml
